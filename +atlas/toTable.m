@@ -57,7 +57,7 @@ T = atlas.toTable(L,G,{'Yeo7'})
 %
 
 source = strsplit(which(['atlas.' mfilename]),'+');
-load([source{1} filesep 'atlas' filesep 'atlas.mat']);
+load([source{1} filesep '+atlas' filesep 'atlas.mat']);
 input = fieldnames(Atlas);% use all of them
 if exist('A','var');input(~ismember(input,A))=[];end
 % match to source grid
