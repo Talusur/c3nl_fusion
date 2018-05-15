@@ -15,9 +15,9 @@ function vol(V,G,fn,ftype,datatype)
 %  VERSION:  0.0 CREATED: 16-Jun-2017 13:50:14
 %
 %% INPUTS:
-%    input01 - 
-%    input02 - 
-%    input03 - 
+%    input01 - Image matrix
+%    input02 - Gird 
+%    input03 - File path to save to
 %    input04 - 
 %
 %
@@ -44,11 +44,11 @@ vol(input01,input02,input03,input04)
 % along with Fusion Pipeline.If not, see <http://www.gnu.org/licenses/>.
 %------------- BEGIN CODE --------------
 %
-% if ~isfield(G,'datatype')
-%     datatype = 'float32-le';
-% else 
-%     datatype = G.datatype;
-% end
+if ~isfield(G,'datatype')
+    datatype = 'float32-le';
+else 
+    datatype = G.datatype;
+end
 switch ftype
     case 'mif'
         source = strsplit(which(['save.' mfilename]),'+');

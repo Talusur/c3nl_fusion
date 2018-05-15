@@ -36,9 +36,9 @@ function functions(fname,developer,obj)
 %% OUTPUT:
 %
 %% EXAMPLES:
-%{
-new.functions('new.testFunction','eyalsoreq',struct('inputvar',{{'test1','test2','test3'}}))
-%}
+%
+% new.functions('new.testFunction',{'Bob','bob@burgers.com','Bob's Burgers'},struct('inputvar',{{'test1','test2','test3'}}))
+%
 %
 %% DEPENDENCIES:
 %

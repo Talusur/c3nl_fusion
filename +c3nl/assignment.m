@@ -16,7 +16,7 @@ function [idx,cost] = assignment(C,type,dir)
 %  AFFILIATION:  Imperial College London
 %  VERSION:  0.0 CREATED: 14-Jun-2017 02:26:54
 %
-%     Explenation
+%     Explanation
 %     =====
 %     we have a complete bipartite graph G = (S,T;E) where G is the graph
 %     elment S are the source vertics and T are the target vertics E are all
