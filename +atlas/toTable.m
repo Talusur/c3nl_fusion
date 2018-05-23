@@ -34,10 +34,10 @@ function T = toTable(L,G,A)
 %    T - table containing the following information:
 %      ROIid, hemisphere, lobe, MNI(X Y Z), A(1 ... K) 
 %% EXAMPLES:
-%{
-T = atlas.toTable(L,G,{'AAL2','WFU'});
-T = atlas.toTable(L,G,{'Yeo7'})
-%}
+%
+% T = atlas.toTable(L,G,{'AAL2','WFU'});
+% T = atlas.toTable(L,G,{'Yeo7'})
+%
 %
 %% DEPENDENCIES:
 %

@@ -1,5 +1,5 @@
-function qcfMRI(N,R,O)
-%% PLOT.QCFMRI: One line description of what the function or script performs
+function M = vxTbe(N)
+%% LOAD.VXTBE: load a 4D NifTi into a 2D (voxel x time) matrix
 %
 %   __           _             
 %  / _|         (_)            
@@ -12,21 +12,18 @@ function qcfMRI(N,R,O)
 %% AUTHOR:  Richard Daws
 %  EMAIL:  rdaws@ic.ac.uk
 %  AFFILIATION:  Imperial College London
-%  VERSION:  0.0 CREATED: 15-May-2018 09:20:04
+%  VERSION:  0.0 CREATED: 19-May-2018 22:07:51
 %
 %% INPUTS:
-%    N - Path to 4D motion corrected nifti
-%    R - Path to realignment parameter txt file (nx6)
-%    
-%  OPTIONAL
-%    O - Path to output directory to save figure in. 
+%    N - Path to nii (char)
 %
 %
 %% OUTPUT:
-%  M - struct containing motion parameters.
+%    M - 2D matrix    
+%
 %% EXAMPLES:
 %
-%  qcfMRI(N,R,O)
+%  M=vxTbe(N)
 %
 
 %% DEPENDENCIES:
@@ -45,5 +42,12 @@ function qcfMRI(N,R,O)
 % along with Fusion Pipeline.If not, see <http://www.gnu.org/licenses/>.
 %------------- BEGIN CODE --------------
 %
-Enter your commands here
+
+N=nifti(N);
+sz=N.dat.dim;
+M=reshape(N.dat(:),prod(sz(1:3)),sz(4));
+
+
+
+
 %------------- END OF CODE --------------

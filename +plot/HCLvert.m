@@ -10,7 +10,7 @@ if ~exist('dmethod','var');dmethod='euc';end
 if ~exist('lmethod','var');lmethod='weighted';end
 Z_features = linkage(pdist(Data,dmethod),lmethod);%weighted,average,complete ,'centroid','median','single','ward'
 Z_measures = linkage(pdist(Data',dmethod),lmethod);
-Y = inconsistent(Z_features,3);
+Y = inconsistent(Z_features,1);
 [~,id]=sort(Y(:,4),'descend');
 %[~,id]=max(Y(:,2))
 featuresOrder = optimalleaforder(Z_features,pdist(Data));
@@ -39,7 +39,7 @@ for ii=1:numel(lcf)
     end
 end
 %0.7*max(Z_measures(:,3)) Z_measures(id(2),3)
-axes(ax.dendotop);[h,~,Z_measures_order,lc]=dendrogram(Z_measures,0,'Reorder',measuresOrder, 'colorthreshold',Z_measures(end-1,3));
+axes(ax.dendotop);[h,~,Z_measures_order,lc]=plot.dendrogram(Z_measures,0,'Reorder',measuresOrder, 'colorthreshold',Z_measures(end-1,3));
 conn = (Z_measures(:,3) < Z_measures(id(1),3));
 
 [measuresClusters,L] = get.labeltree(Z_measures, conn,lc);
@@ -89,7 +89,9 @@ if ~isempty(cat)
     else
         r = round(numel(cat)^.5);
         A = ones(r,1)*(numel(cat)/r);
-        [x,y] = get.fancyGrid(A,0.1,0.1,'same');
+        %[x,y] = get.fancyGrid(A,0.1,0.1,'same'); % I fucked with this. %
+        %Eyal YOU NEED TO DEAL WITH THIS
+        [x,y] = get.fancyGrid(numel(cat),0.1,0.1,'same');
     end
     x=flipud(x);
     for jj=1:numel(cat)

@@ -1,5 +1,4 @@
 function [G,L,T] = labeltree(X,conn,gp)
-   
 n = size(X,1);
 nleaves = n+1;
 T = nan(n+1,1);
