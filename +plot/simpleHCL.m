@@ -50,7 +50,7 @@ simpleHCL(input01,input02,input03,input04)
 
 obj = struct('dmtd','euc','lmtd','ward',...
              'cmap',get.cmap(flipud([255 205 155;255 180 104;255 155 54;255 130 4;191 98 3;51 51 51;14 83 164;49 92 143;62 117 182;110 152 200;207 221 237]./255),101),...
-             'depth',3,'type','simple','xdepth',3,'ydepth',3,...
+             'depth',3,'type','simple','xdepth',2,'ydepth',3,...
              'clim',round(max(abs(X(:)))).*[-1,1]);
 
 out = [];         
@@ -76,7 +76,7 @@ switch obj.type
         b1 = .05;l1=.1 ;w1 = .8;h1 =.8;
         ax.main = axes('Position', [l1+0.03 b1 w1 h1]);%main heat map[left bottom width height]
         ax.den_x = axes('Position',  [l1+0.03 b1+h1 w1 l1-.01]);%top dendogram
-        ax.den_y = axes('Position',  [0.03 b1 l1-.01 h1]);%left dendogram        
+        ax.den_y = axes('Position',  [0.04 b1 l1-.01 h1]);%left dendogram        
         ax.cb = axes('Position',  [w1+l1+.05 b1 0.02 h1]);%color bar
         
     case 'labels'    
@@ -113,6 +113,22 @@ ax.main.CLim = obj.clim;
 colormap(ax.main,obj.cmap);
 
 % plot color bar
+axes(ax.cb);
+
+
+cb = linspace(obj.clim(1),obj.clim(2),100);
+imagesc((cb)','parent',ax.cb)
+colormap( ax.cb,obj.cmap);
+
+set(ax.cb,'CLim',obj.clim,'YAxisLocation','right','YDir','normal')
+ax.cb.YTick = linspace(1,100,10);
+ax.cb.YTickLabel = num2cell((round(cb(ax.cb.YTick),2)));
+ax.cb.XTick ='';
+set(ax.main, 'Xticklabel', [], 'yticklabel',[]);
+
+set(ax.den_x, 'ylim', [0.5,numel(out.xOrder)+0.5], 'Visible', 'Off');
+set(ax.den_y, 'xlim', [0.5,numel(out.yOrder)+0.5], 'Visible', 'Off');
+
 
 end
 

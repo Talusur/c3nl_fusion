@@ -113,6 +113,25 @@ ax.main.CLim = obj.clim;
 colormap(ax.main,obj.cmap);
 
 % plot color bar
+axes(ax.cb);
+
+
+cb = linspace(obj.clim(1),obj.clim(2),100);
+imagesc((cb)','parent',ax.cb)
+colormap( ax.cb,obj.cmap);
+
+set(ax.cb,'CLim',obj.clim,'YAxisLocation','right','YDir','normal')
+ax.cb.YTick = linspace(1,100,10);
+ax.cb.YTickLabel = num2cell((round(cb(ax.cb.YTick),2)));
+ax.cb.XTick ='';
+set(ax.main, 'Xticklabel', [], 'yticklabel',[]);
+
+axis(ax.den_x,'off')
+axis(ax.den_y,'off')
+
+set(ax.dendoleft, 'ylim', [0.5,length(obj.xOrder)+0.5], 'Visible', 'Off');
+set(ax.dendotop, 'xlim', [0.5,length(measuresOrder)+0.5], 'Visible', 'Off');
+
 
 end
 
