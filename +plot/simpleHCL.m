@@ -129,7 +129,7 @@ set(ax.main, 'Xticklabel', [], 'yticklabel',[]);
 set(ax.den_x, 'ylim', [0.5,numel(out.xOrder)+0.5], 'Visible', 'Off');
 set(ax.den_y, 'xlim', [0.5,numel(out.yOrder)+0.5], 'Visible', 'Off');
 
-
+out.ax=ax;
 end
 
 
