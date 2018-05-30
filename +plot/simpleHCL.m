@@ -87,23 +87,31 @@ switch obj.type
     otherwise
     
 end
-% plot top dendorgam 
+% cmap
+mN=0.1;mX=0.7;
+map = new.cmap([mX mN mN;mN mX mX;mN mN mX]*255,100);
+
+
+% plot top dendorgam
 axes(ax.den_x);
 [xh,~,~,xcg] = plot.dendrogram(Z_x,0,'orient', 'top', 'colorthreshold',Z_x(L_x(obj.xdepth),3),'Reorder',out.xOrder);
 conn_x = (Z_x(:,3) < Z_x(L_x(obj.xdepth),3));
-[out.xClusters,Lx] = get.labeltree(Z_x, conn_x,xcg);
-out.cmap_x = hsv(max(Lx)-1);
-
+[out.xClusters,~] = get.labeltree(Z_x, conn_x,xcg);
+out.cmap_x = map(floor(linspace(1, size(map,1)/2, max(unique(xcg(xcg>0))))),:);
 colorBranch(xh,xcg,out.cmap_x);
 
 % plot left dendorgam
 axes(ax.den_y);
 [yh,~,~,ycg] = plot.dendrogram(Z_y,0,'orient', 'left', 'colorthreshold',Z_y(L_y(obj.ydepth),3),'Reorder',out.yOrder);
 conn_y = (Z_y(:,3) < Z_y(L_y(obj.ydepth),3));
-[out.yClusters,Ly] = get.labeltree(Z_y, conn_y,ycg);
-out.cmap_y = hsv(max(Ly)-1);
+[out.yClusters,~] = get.labeltree(Z_y, conn_y,ycg);
+map=flipud(map);
+out.cmap_y = map(floor(linspace(1, size(map,1)/2, max(unique(ycg(ycg>0))))),:);
+colorBranch(yh,ycg,out.cmap_y);
 
-colorBranch(yh,ycg,out.cmap_y)
+
+%out.cmap_y = hsv(max(Ly)-1);
+%colorBranch(yh,ycg,out.cmap_y)
 
 % plot heat map 
 axes(ax.main);

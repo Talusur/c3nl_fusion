@@ -24,7 +24,7 @@ function map = cmap(color,n,weights)
 %
 %% EXAMPLES:
 %{
-map = gen.cmap([244,235,37;251,198,85;0,0,0;30,152,213;70,64,153])
+map = new.cmap([244,235,37;251,198,85;0,0,0;30,152,213;70,64,153])
 figure;imagesc(-6:0.1:6);
 colormap(map)
 %}
@@ -46,11 +46,11 @@ colormap(map)
 %------------- BEGIN CODE --------------
 %
 if nargin < 2; n = 64;end
-if nargin < 3; weigths = linspace(0,1,size(color,1));end
+if nargin < 3; weights = linspace(0,1,size(color,1));end
 if (range(min(color(:),max(color(:))))>1||any(color(:))>1)
     color = c3nl.scale(color);
 end
-map = interp1(weigths,color,linspace(0,1,n));
+map = interp1(weights,color,linspace(0,1,n));
 
 end
 %------------- END OF CODE --------------

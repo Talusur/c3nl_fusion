@@ -87,12 +87,20 @@ switch obj.type
     otherwise
     
 end
-% plot top dendorgam 
+% cmap
+map = new.cmap([1 0 0;0 1 0;0 0 1]*255,255);
+out.cmap_x = 
+out.cmap_y
+
+% plot top dendorgam
 axes(ax.den_x);
 [xh,~,~,xcg] = plot.dendrogram(Z_x,0,'orient', 'top', 'colorthreshold',Z_x(L_x(obj.xdepth),3),'Reorder',out.xOrder);
 conn_x = (Z_x(:,3) < Z_x(L_x(obj.xdepth),3));
 [out.xClusters,Lx] = get.labeltree(Z_x, conn_x,xcg);
-out.cmap_x = hsv(max(Lx)-1);
+
+tmp=floor(linspace(1, size(out.cmap_x,1), max(unique(xcg(xcg>0))) ));
+colorBranch(xh,xcg,out.cmap_x(tmp,:));
+
 
 colorBranch(xh,xcg,out.cmap_x);
 
@@ -125,8 +133,8 @@ ax.cb.YTickLabel = num2cell((round(cb(ax.cb.YTick),2)));
 ax.cb.XTick ='';
 set(ax.main, 'Xticklabel', [], 'yticklabel',[]);
 
-set(ax.den_x, 'ylim', [0.5,numel(out.xOrder)+0.5], 'Visible', 'Off');
-set(ax.den_y, 'xlim', [0.5,numel(out.yOrder)+0.5], 'Visible', 'Off');
+set(ax.den_x, 'xlim', [0.5,numel(out.xOrder)+0.5], 'Visible', 'Off');
+set(ax.den_y, 'ylim', [0.5,numel(out.yOrder)+0.5], 'Visible', 'Off');
 
 out.ax=ax;
 end
