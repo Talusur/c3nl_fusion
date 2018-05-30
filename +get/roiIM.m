@@ -46,7 +46,7 @@ for jj=1:3
                 Output.roi = tmp.cdata;
                 Output.alpha = rgb2gray(tmp.cdata)~=240;
                 cla(ax);
-            case 3; 
+            case 3
                 patch('Vertices',V,'Faces',F,'FaceVertexCData',1-AO,'FaceColor','interp','EdgeColor','none','FaceAlpha',1);
                 view(az,el);axis 'off';daspect([1 1 1]);colormap gray;axis (ax,lim);
                 light
