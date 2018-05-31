@@ -98,7 +98,7 @@ axes(ax.den_x);
 conn_x = (Z_x(:,3) < Z_x(L_x(obj.xdepth),3));
 [out.xClusters,~] = get.labeltree(Z_x, conn_x,xcg);
 out.cmap_x = map(floor(linspace(1, size(map,1)/2, max(unique(xcg(xcg>0))))),:);
-colorBranch(xh,xcg,out.cmap_x);
+%colorBranch(xh,xcg,out.cmap_x);
 
 % plot left dendorgam
 axes(ax.den_y);
@@ -107,7 +107,7 @@ conn_y = (Z_y(:,3) < Z_y(L_y(obj.ydepth),3));
 [out.yClusters,~] = get.labeltree(Z_y, conn_y,ycg);
 map=flipud(map);
 out.cmap_y = map(floor(linspace(1, size(map,1)/2, max(unique(ycg(ycg>0))))),:);
-colorBranch(yh,ycg,out.cmap_y);
+%colorBranch(yh,ycg,out.cmap_y);
 
 
 %out.cmap_y = hsv(max(Ly)-1);
@@ -141,10 +141,7 @@ end
 
 
 %% NESTED 
-
 function colorBranch(h,cg,cmap)
-
-
 for ii=1:numel(cg)
     if cg(ii)
         h(ii).Color =  cmap(cg(ii),:);
