@@ -89,8 +89,7 @@ if ~isempty(cat)
     else
         r = round(numel(cat)^.5);
         A = ones(r,1)*(numel(cat)/r);
-        %[x,y] = get.fancyGrid(A,0.1,0.1,'same'); % I fucked with this. %
-        %Eyal YOU NEED TO DEAL WITH THIS
+        %[x,y] = get.fancyGrid(A,0.1,0.1,'same'); 
         [x,y] = get.fancyGrid(numel(cat),0.1,0.1,'same');
     end
     x=flipud(x);
