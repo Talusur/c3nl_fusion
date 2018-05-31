@@ -1,4 +1,4 @@
-function M = nmap(N,P)
+function M = nmap(N,I,P)
 %% COLOUR.NMAP: LookUp N maximally different colour codes. 
 %
 %   __           _             
@@ -16,6 +16,7 @@ function M = nmap(N,P)
 %
 %% INPUTS:
 %    N - Number of colour codes required (Max=64)
+%    I - idx of desired colour(s) (Max=64)
 % 
 %  OPTIONAL
 %    P - Pallete type desired, defualt='rgb' {'rgb','hsv'}
@@ -43,11 +44,13 @@ function M = nmap(N,P)
 % along with Fusion Pipeline.If not, see <http://www.gnu.org/licenses/>.
 %------------- BEGIN CODE --------------
 %
-C=load('+colour/C.mat');C=C.C;
-if ~exist('P','var'); P='rgb'; end
+C=load('+colour/C.mat');C=C.C/255;
+if ~exist('P','var');P='rgb'; end
+if ~exist('I','var');I=1:N;end
+
 switch P 
-    case 'rgb';M=C(2:N,:);
-    case 'hsv';M=rgb2hsv(C(2:N,:));
+    case 'rgb';M=C(I,:);
+    case 'hsv';M=rgb2hsv(C(I,:));
 end
 
 %Reference:http://godsnotwheregodsnot.blogspot.com/2012/09/color-distribution-methodology.html

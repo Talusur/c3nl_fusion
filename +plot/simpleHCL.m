@@ -97,21 +97,18 @@ axes(ax.den_x);
 [xh,~,~,xcg] = plot.dendrogram(Z_x,0,'orient', 'top', 'colorthreshold',Z_x(L_x(obj.xdepth),3),'Reorder',out.xOrder);
 conn_x = (Z_x(:,3) < Z_x(L_x(obj.xdepth),3));
 [out.xClusters,~] = get.labeltree(Z_x, conn_x,xcg);
-out.cmap_x = map(floor(linspace(1, size(map,1)/2, max(unique(xcg(xcg>0))))),:);
-%colorBranch(xh,xcg,out.cmap_x);
+out.cmap_x = colour.nmap(max(out.xClusters),10:9+max(out.xClusters));
+colorBranch(xh,xcg,out.cmap_x);
 
 % plot left dendorgam
 axes(ax.den_y);
 [yh,~,~,ycg] = plot.dendrogram(Z_y,0,'orient', 'left', 'colorthreshold',Z_y(L_y(obj.ydepth),3),'Reorder',out.yOrder);
 conn_y = (Z_y(:,3) < Z_y(L_y(obj.ydepth),3));
 [out.yClusters,~] = get.labeltree(Z_y, conn_y,ycg);
-map=flipud(map);
-out.cmap_y = map(floor(linspace(1, size(map,1)/2, max(unique(ycg(ycg>0))))),:);
-%colorBranch(yh,ycg,out.cmap_y);
+out.cmap_y = colour.nmap(max(out.yClusters),35:34+max(out.yClusters));
+colorBranch(yh,ycg,out.cmap_y);
 
 
-%out.cmap_y = hsv(max(Ly)-1);
-%colorBranch(yh,ycg,out.cmap_y)
 
 % plot heat map 
 axes(ax.main);
