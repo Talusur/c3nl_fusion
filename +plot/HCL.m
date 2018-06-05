@@ -47,7 +47,7 @@ simpleHCL(input01,input02,input03,input04)
 out = []; 
 obj = struct('dmtd','euc','lmtd','ward',...
              'cmap',get.cmap(flipud([255 205 155;255 180 104;255 155 54;255 130 4;191 98 3;51 51 51;14 83 164;49 92 143;62 117 182;110 152 200;207 221 237]./255),101),...
-             'depth',3,'type','simple','xdepth',2,'ydepth',3,...
+             'depth',3,'type','labels','xdepth',2,'ydepth',3,...
              'clim',round(max(abs(X(:)))).*[-1,1]);
     
 
@@ -73,7 +73,11 @@ ax.cb = axes('Position',  [w1+l1+.05 b1 0.02 h1]);%color bar
 % Build complexity if requested
 switch obj.type 
     case 'labels'
-        [x,y,w,h]=get.fancyGrid(ones(size(I,2),1),0.05,0.001,'same');
+        if exist('I','var');
+            [x,y,w,h]=get.fancyGrid(ones(size(I,2),1),0.05,0.001,'same');
+        else
+            error('Event Index not defined')
+        end
         for ii=1:numel(x)
             ax.(['b' num2str(ii)]) = axes('Position',  [l1+0.03 0.04+y(ii)*(b1-.05) w1 h*(b1-0.05)]);
             %ax.(['l' num2str(ii)]) = axes('Position',  [l1+w1 0.01+y(ii)*(b1-.05) w*.2 h*(b1-0.05)]);
@@ -83,6 +87,9 @@ switch obj.type
     case 'lacl' % Labels % Clusters        
     otherwise; error('Obj.type should equal simple, labels, clusters or lacl')   
 end
+% if Label plot
+
+
 
 % plot top dendorgam
 axes(ax.den_x);
@@ -97,14 +104,16 @@ conn_y = (Z_y(:,3) < Z_y(L_y(obj.ydepth),3));
 [out.yClusters,~] = get.labeltree(Z_y, conn_y,ycg);
 
 % Cluster cmap
-out.cmap_x = colour.nmap(max(out.xClusters),10:9+max(out.xClusters));
+cmap=jet(numel(unique(xcg(xcg>0)))+numel(unique(ycg(ycg>0))));
+out.cmap_x=cmap(1:numel(unique(xcg(xcg>0))),:);
+cmap=flipud(cmap);
+out.cmap_y=cmap(1:numel(unique(ycg(ycg>0))),:);
 colorBranch(xh,xcg,out.cmap_x);
-out.cmap_y = colour.nmap(max(out.yClusters),35:34+max(out.yClusters));
 colorBranch(yh,ycg,out.cmap_y);
 
 % plot heat map 
 axes(ax.main);
-imagesc(X(out.xOrder,out.yOrder)')
+imagesc(X(out.xOrder,out.yOrder)');
 ax.main.CLim = obj.clim;
 colormap(ax.main,obj.cmap);
 
@@ -123,12 +132,12 @@ set(ax.main, 'Xticklabel', [], 'yticklabel',[],'Visible','off');
 set(ax.den_x, 'xlim', [0.5,numel(out.xOrder)+0.5], 'Visible', 'Off');
 set(ax.den_y, 'ylim', [0.5,numel(out.yOrder)+0.5], 'Visible', 'Off');
 
-if ~strcmp(obj.type,'simple')
+if ~strcmp(obj.type,'simple')  
    for ii = 1:size(I,2)
         axes(ax.(['b' num2str(ii)]));        
         imagesc(I(out.xOrder,ii)');
-        colormap(ax.(['b' num2str(ii)]),lmap)
-        set(ax.(['b' num2str(ii)]),'Visible','off')
+        colormap(ax.(['b' num2str(ii)]),lmap);
+        set(ax.(['b' num2str(ii)]),'Visible','off');        
    end  
 end
 
